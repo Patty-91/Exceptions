@@ -1,0 +1,71 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+double averageFunc(int sum, int total);
+
+
+//HERE WE WILL HAVE MULTIPLE EXCEPTIONS, ONE FOR 0 AND ONE FOR NEGATIVE NUMBERS
+
+int main()
+{
+
+double average{}, sum{}, total{};
+
+cout << "Please enter the sum of all elements" << endl;
+cin >> sum;
+
+cout << "Please enter the number of elements" << endl;
+cin >> total;
+
+
+
+
+
+try {
+
+
+cout << "The average is " << averageFunc(sum, total) << endl;
+
+}
+
+
+
+
+//FIRST CATCH
+catch (int &exc) {
+
+cout << "Sorry, you cannot divide by zero" << endl;
+}
+
+//SECOND CATCH
+catch (string &exc) {
+
+cout << exc << endl;
+}
+
+
+
+cout << "End of program" << endl;
+
+
+system("pause");
+return 0;
+
+}
+
+double averageFunc(int sum, int total) {
+
+if (total == 0)
+throw 0;
+
+if (sum < 0 || total < 0)
+throw string{ "You cannot use negative numbers" };
+
+return static_cast<double>(sum) / total;
+
+}
