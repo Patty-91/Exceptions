@@ -1,0 +1,86 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+double averageFunc(int sum, int total);
+
+
+//HERE WE WILL HAVE MULTIPLE EXCEPTIONS, ONE FOR 0 AND ONE FOR NEGATIVE NUMBERS
+
+
+class DivededZeroException {
+public:
+DivededZeroException() { cout << "Constructor called" << endl; }
+
+};
+
+class NegativeException {
+public:
+NegativeException() { cout << "Constructor called" << endl; }
+};
+
+int main()
+{
+
+//You can create classes for your exceptions and use all classes resources, such as the constructor to get notified whenever an obj is created
+
+double average{}, sum{}, total{};
+
+cout << "Please enter the sum of all elements" << endl;
+cin >> sum;
+
+cout << "Please enter the number of elements" << endl;
+cin >> total;
+
+
+
+
+
+try {
+
+
+cout << "The average is " << averageFunc(sum, total) << endl;
+
+}
+
+
+
+
+//FIRST CATCH
+catch (DivededZeroException &exc) {
+
+cout << "Sorry, you cannot divide by zero" << endl;
+}
+
+//SECOND CATCH
+catch (NegativeException &exc) {
+
+
+cout << "Sorry, you cannot use Negative Numbers" << endl;
+}
+
+
+
+cout << "End of program" << endl;
+
+
+system("pause");
+return 0;
+
+}
+
+double averageFunc(int sum, int total) {
+
+if (total == 0)
+throw DivededZeroException();
+
+if (sum < 0 || total < 0)
+throw NegativeException();
+
+return static_cast<double>(sum) / total;
+
+}
