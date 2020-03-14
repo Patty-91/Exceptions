@@ -1,0 +1,90 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+
+
+
+class ExceptionObj {
+public:
+ExceptionObj() { cout << "Exception found!" << endl; }
+~ExceptionObj() {}
+
+};
+
+class Account {
+
+int balance;
+string name;
+
+public:
+Account() : Account(0, "NoName") {}
+Account(int b, string n) : balance{ b }, name{ n }{
+
+//THIS IS A THROW FROM THE CONTRUCTOR
+if (b < 0)
+throw ExceptionObj();
+
+}
+
+int getBalance() {
+return balance;
+}
+
+string getName() {
+return name;
+}
+
+
+friend ostream& operator<<(ostream & cout, Account & a);
+
+
+
+};
+
+ostream& operator<<(ostream & cout, Account & a) {
+
+cout << "Customer name: " << a.getName() << endl;
+cout << "Balance is: "<< a.getBalance() << endl;
+
+return cout;
+}
+
+
+int main()
+{
+
+
+//IF THE USER TRY TO CREATE A CUSTOMER WITH NEGATIVE BALANCE IT WILL THROW AN EXCEPTION
+
+try {
+
+unique_ptr<Account> AccNew = make_unique<Account>(100, "Rich");
+
+cout << *AccNew << endl;
+
+unique_ptr<Account> AndrePtr = make_unique<Account>(-1, "Andre");
+
+cout << *AndrePtr << endl;
+
+
+}
+
+
+catch (ExceptionObj & exc) {
+
+cout << "Exception Obj was caught" << endl;
+
+
+}
+
+
+
+system("pause");
+return 0;
+
+}
