@@ -1,0 +1,64 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+void B();//forward decalration
+void C();//forward decalration
+
+void A() {
+cout << "Starting function A" << endl;
+
+B();
+
+cout << "Ending function A" << endl;
+
+}
+
+void B() {
+cout << "Starting function B" << endl;
+
+C();
+
+cout << "Ending function B" << endl;
+
+}
+
+void C() {
+cout << "Starting function C" << endl;
+
+
+cout << "Ending function C" << endl;
+
+throw 100;
+
+}
+
+
+int main()
+{
+//Whenever the code finds the "throw" it will stop the normal stack flow and start looking for the "catch"
+//after the throw, nothing will run until the compiler finds the catch
+
+cout << "Starting Main" << endl;
+
+try {
+A();
+}
+
+catch(int &ex){
+
+cout << ex << " Was caught from main" << endl;
+}
+
+
+cout << "Finishing Main" << endl;
+
+
+system("pause");
+return 0;
+
+}
